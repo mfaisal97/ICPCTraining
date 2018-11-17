@@ -7,17 +7,17 @@
 
 using namespace std;
 
-pair<int, int> BruteForce(vector<int>& nums) {
+pair<int, int> BruteForce(vector<int>& nums) {	//T(n) = 2 + 2n^2 - 2n = O(n^2)
 
 	int indexOne = 0;
 	int indexTwo = 1;
-	int smallest_diff = abs(nums[indexOne] - nums[indexTwo]);
+	int smallest_diff = abs(nums[indexOne] - nums[indexTwo]);		//T = 2
 	int new_diff;
 
-	for (int i = 0; i < nums.size(); ++i) {
-		for (int j = 0; j < nums.size(); ++j) {
+	for (int i = 0; i < nums.size(); ++i) {							//T(n) = (2n-2)(for i = 0 to n-1) = (2n - 2)(n-1-0+1) = 2n^2 - 2n
+		for (int j = 0; j < nums.size(); ++j) {						//T(n) = 2 (for i = 0 to n - 1 and i != j) = 2 ((n-1 - 0 + 1) - (1)) = 2n - 2
 			if (i != j) {
-				new_diff = abs(nums[indexOne] - nums[indexTwo]);
+				new_diff = abs(nums[indexOne] - nums[indexTwo]);	//T = 2
 				if (new_diff < smallest_diff) {
 					indexOne = i;
 					indexTwo = j;
@@ -30,17 +30,17 @@ pair<int, int> BruteForce(vector<int>& nums) {
 	return pair<int, int>(indexOne, indexTwo);
 }
 
-pair<int, int> PresortAndScan(vector<int>& nums) {
+pair<int, int> PresortAndScan(vector<int>& nums) { 	//T(n) = O(n logn)
 
-	sort_heap(nums.begin(), nums.end());
+	sort_heap(nums.begin(), nums.end());			//Standard heapify algorithm : T(n) = O(n logn)
 
 	int indexOne = 0;
 	int indexTwo = 1;
-	int smallestDistance = nums[1] - nums[0];
+	int smallestDistance = nums[1] - nums[0];		//T = 2
 
 	int newDistance;
-	for (int i = 1; i < nums.size() - 1; ++i) {
-		newDistance = nums[i + 1] - nums[i];
+	for (int i = 1; i < nums.size() - 1; ++i) {		//T(n) = 2 (for i = 1 to n-2) = 2(n-2-1+1) = 2(n-2) = 2n-4
+		newDistance = nums[i + 1] - nums[i];		//T = 2
 		if (newDistance < smallestDistance) {
 			smallestDistance = newDistance;
 			indexOne = i;
@@ -83,6 +83,7 @@ int partition(vector<T>& nums, int startIndex, int endIndex, int & arryacesscoun
 }
 
 
+// has O(n) according to the Qselect algorithm analysis with the assignment
 template<typename T>
 pair <T, int> qselect(vector <T>& nums, int startIndex, int endIndex, int smallestRank, int & arryacesscount) {
 	if (startIndex == endIndex) {
@@ -108,18 +109,19 @@ pair <T, int> qselect(vector <T>& nums, int startIndex, int endIndex, int smalle
 	}
 }
 
+//T(n) = O(n logn)
 template<typename T>
 pair<T, T> ClosestPairQSelect(vector<T>& nums, int startIndex, int endIndex, int& arrayAccessCount) {
 	if (endIndex - startIndex + 1 < 2) {
 		return pair<T, T>(-1, -1);
 	}
-	else if (endIndex - startIndex + 1 == 2) {
+	else if (endIndex - startIndex + 1 == 2) {			//T = 2
 		arrayAccessCount = arrayAccessCount + 2;
 		return pair <T, T>(nums[startIndex], nums[endIndex]);
 	}
 	else
-	{
-		pair<T, int> median = qselect<T>(nums, startIndex, endIndex, (endIndex - startIndex + 1) / 2, arrayAccessCount);
+	{				//O(n log n)
+		pair<T, int> median = qselect<T>(nums, startIndex, endIndex, (endIndex - startIndex + 1) / 2, arrayAccessCount);	//O(n)
 
 		if (endIndex - median.second < 2) {
 			pair<T, T> P1;
