@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Loader Page</title>
+        <script type="text/javascript" src="source.js"></script>
+    </head>
+    <body >
+        <script>
+            Clients = '[{"clientID" : "12345" , "name" : "Mickey", "age" : "21"}]';
+            Orders = '[{"orderID" : "1010", "clientID" :  "12345", "itemName" : "Book Of Luck", "price" : "10" }]';
+            DatabaseClinet.MergeClientsOrders(Clients, Orders);
+            let TargetClientID = DatabaseClinet.GetClientWithOrder("1010");
+            alert(TargetClientID.name);
+        </script>
+    </body>
+</html>
