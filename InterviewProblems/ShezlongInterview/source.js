@@ -1,5 +1,5 @@
 //Data insertion O(n+m)
-//Data query O(log(n)) or O(log(m)) or O(log(n)*log(m))
+//Data query O(log(n)) or O(log(m)) or O(log(n)+log(m))
 var DatabaseClinet = {
     "Data" : {
             "Clients" : null,           //it has name, age, ordersids
